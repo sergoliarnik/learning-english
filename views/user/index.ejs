@@ -7,6 +7,10 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Hello world!</h1>
+    <ul>
+      <% for (let post of posts) { %>
+      <li><%= post.title %></li>
+      <% } %>
+    </ul>
   </body>
 </html>
