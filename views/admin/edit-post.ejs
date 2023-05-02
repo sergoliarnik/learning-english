@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/post.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <form class="post-form" action="/admin/<% if (editing) { %>edit-post<% } else { %>add-post<% } %>" method="POST">
+            <div class="form-control">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" value="<% if (editing) { %><%= post.title %><% } %>">
+            </div>
+            <div class="form-control">
+                <label for="text">Text</label>
+                <textarea name="text" id="text" rows="5"><% if (editing) { %><%= post.text %><% } %></textarea>
+            </div>
+            <% if (editing) { %> 
+                <input type="hidden" value="<%= post.id  %>" name="postId">
+            <% } %>
+            <button class="btn" type="submit"><% if (editing) { %>Update Post<% } else { %>Add Post<% } %></button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

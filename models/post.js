@@ -11,7 +11,6 @@ const Post = sequelize.define('post', {
   },
   title: Sequelize.STRING,
   text: Sequelize.TEXT,
-  role: Sequelize.STRING,
 });
 
 module.exports = Post;
