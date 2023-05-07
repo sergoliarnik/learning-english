@@ -1,0 +1,57 @@
+.post-detail__post {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.post-detail__image {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    display: block; /* this is important for centering */
+    margin: auto; /* this centers the image horizontally */
+}
+
+.post-detail__text {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: justify;
+
+}
+
+.post-detail__author{
+    text-align: right;
+
+    padding-top: 5%;
+}
+
+.post-detail__comment{
+    text-align: left;
+}
+
+.post-detail__comment-object {
+    text-align: left;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.author {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.text {
+    font-size: 14px;
+    text-align: left;
+}
+

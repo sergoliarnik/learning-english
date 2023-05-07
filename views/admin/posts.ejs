@@ -15,10 +15,9 @@
                                         <%= post.title %>
                                     </h1>
                                 </header>
-                                <div class="card__content">
-                                    <p class="post__description">
-                                        <%= post.text %>
-                                    </p>
+                                <div class="card__image">
+                                    <img src="<%= post.imageUrl %>"
+                                         alt="<%= post.title %>">
                                 </div>
                                 <div class="card__actions">
                                     <a href="/admin/edit-post/<%= post.id %>?edit=true" class="btn">Edit</a>

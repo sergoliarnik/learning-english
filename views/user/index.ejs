@@ -12,6 +12,10 @@
                         <header class="card__header">
                             <h1 class="post__title"><%= post.title %></h1>
                         </header>
+                        <div class="card__image">
+                            <img src="<%= post.imageUrl %>"
+                                 alt="<%= post.title %>">
+                        </div>
                         <div class="card__actions">
                             <a href="/posts/<%= post.id %>" class="btn">Details</a>
                         </div>

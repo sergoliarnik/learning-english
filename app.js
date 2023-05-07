@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 const sequelize = require('./util/database');
 const User = require('./models/user');
 const Post = require('./models/post');
+const Comment = require('./models/comment');
 
 const app = express();
 const store = new PostgresDBStore({
@@ -48,8 +49,12 @@ app.use('/admin', adminRoutes);
 app.use(userRoutes);
 app.use(authRoutes);
 
-Post.belongsTo(User), { constraints: true, onDelete: 'CASCADE' };
+Post.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 User.hasMany(Post);
+Comment.belongsTo(Post, { constraints: true, onDelete: 'CASCADE' });
+Post.hasMany(Comment);
+Comment.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+User.hasMany(Comment);
 
 sequelize
   .sync()

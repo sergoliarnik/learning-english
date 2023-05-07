@@ -3,80 +3,73 @@ const User = require('../models/user');
 
 exports.getAddPost = (req, res) => {
   res.render('admin/edit-post', {
-    editing: false,
+    editing: false
   });
 };
 
-exports.postAddPost = (req, res) => {
+exports.postAddPost = async (req, res) => {
   const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
   const text = req.body.text;
-  User.findByPk(req.session.user.id).then((user) => {
-    user
-      .createPost({
-        title: title,
-        text: text,
-      })
-      .then(() => {
-        res.redirect('/admin/posts');
-      });
+  const user = await User.findByPk(req.session.user.id);
+  await user.createPost({
+    title: title,
+    imageUrl: imageUrl,
+    text: text
   });
+  res.redirect('/admin/posts');
 };
 
-exports.getEditPost = (req, res) => {
+exports.getEditPost = async (req, res) => {
   const editMode = req.query.edit;
   if (!editMode) {
     return res.redirect('/');
   }
   const postId = req.params.postId;
-  User.findByPk(req.session.user.id).then((user) => {
-    user.getPosts({ where: { id: postId } }).then((posts) => {
-      const post = posts[0];
-      if (!post) {
-        return res.redirect('/');
-      }
-      res.render('admin/edit-post', {
-        editing: editMode,
-        post: post,
-      });
-    });
+  const user = await User.findByPk(req.session.user.id);
+  const posts = await user.getPosts({ where: { id: postId } });
+  const post = posts[0];
+  if (!post) {
+    return res.redirect('/');
+  }
+  res.render('admin/edit-post', {
+    editing: editMode,
+    post: post
   });
+
 };
 
-exports.postEditPost = (req, res) => {
+exports.postEditPost = async (req, res) => {
   const postId = req.body.postId;
   const title = req.body.title;
+  const imageUrl = req.body.imageUrl;
   const text = req.body.text;
 
-  Post.findByPk(postId).then((post) => {
-    if (post.userId.toString() !== req.session.user.id.toString()) {
-      return res.redirect('/');
-    }
-    post.title = title;
-    post.text = text;
-    return post.save().then(() => {
-      res.redirect('/admin/posts');
-    });
+  const post = await Post.findByPk(postId);
+  if (post.userId.toString() !== req.session.user.id.toString()) {
+    res.redirect('/');
+  }
+  post.title = title;
+  post.imageUrl = imageUrl;
+  post.text = text;
+  await post.save();
+  res.redirect('/admin/posts');
+};
+
+exports.getPosts = async (req, res) => {
+  const user = await User.findByPk(req.session.user.id);
+  const posts = await user.getPosts();
+  res.render('admin/posts', {
+    posts: posts
   });
 };
 
-exports.getPosts = (req, res) => {
-  User.findByPk(req.session.user.id).then((user) => {
-    user.getPosts().then((posts) => {
-      res.render('admin/posts', {
-        posts: posts,
-      });
-    });
-  });
-};
-
-exports.postDeletePost = (req, res) => {
+exports.postDeletePost = async (req, res) => {
   const postId = req.body.postId;
-  Post.findByPk(postId).then((post) => {
-    if (post.userId.toString() !== req.session.user.id.toString()) {
-      return res.redirect('/');
-    }
-    return post.destroy().then(() => {
-      res.redirect('/admin/posts');
-    });
-  });
+  const post = await Post.findByPk(postId);
+  if (post.userId.toString() !== req.session.user.id.toString()) {
+    return res.redirect('/');
+  }
+  await post.destroy();
+  res.redirect('/admin/posts');
 };

@@ -1,11 +1,32 @@
-<%- include('../includes/head.ejs') %>
+    <%- include('../includes/head.ejs') %>
+        <link rel="stylesheet" href="/css/post-details.css">
     </head>
 
     <body>
         <%- include('../includes/navigation.ejs') %>
-        <main class="centered">
+        <main class="centered post-detail__post">
             <h1><%= post.title %></h1>
             <hr>
-            <p><%= post.text %></p>
+                <img class="post-detail__image" src="<%= post.imageUrl %>"
+                     alt="<%= post.title %>">
+            <p class='post-detail__text'><%= post.text %></p>
+            <p class='post-detail__author'>Author: <%= author %></p>
+            <p class='post-detail__comment'>Comments</p>
+            <div class="comments">
+            <% for(let comment of comments) { %>
+                    <div class="comment">
+                        <div class="author"><%= comment.user.email %></div>
+                        <div class="text"><%= comment.text %></div>
+                    </div>
+            <% } %>
+            </div>
+
+            <form action="/posts/<%= postId %>/comments" method="POST">
+
+                <label for="text">Comment:</label>
+                <textarea name="text" id="text" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
         </main>
         <%- include('../includes/end.ejs') %>
