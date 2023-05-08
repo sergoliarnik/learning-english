@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
+const Test = require('../models/test');
+const Answer = require('../models/answer');
 
 exports.getIndex = async (req, res) => {
   const posts = await Post.findAll();
@@ -34,4 +36,35 @@ exports.postComment = async (req, res) => {
   await comment.setPost(post);
 
   res.redirect('/admin/posts');
+};
+
+exports.getTests = async (req, res) => {
+  const tests = await Test.findAll();
+  res.render('user/tests', {
+    tests: tests
+  });
+};
+
+exports.getTest = async (req, res) => {
+  const testId = req.params.testId;
+  const questions = await (await Test.findByPk(testId)).getQuestions({ include: Answer });
+  res.render('user/test-details', {
+    testId: testId,
+    questions: questions
+  });
+};
+
+exports.postTestComplete = async (req, res) => {
+  let countOfRight = 0;
+  const testId = req.params.testId;
+  const questions = await (await Test.findByPk(testId)).getQuestions({ include: Answer });
+  for (const answer in req.body) {
+    if ((await Answer.findByPk(req.body[answer])).isRight) {
+      countOfRight++;
+    }
+  }
+  res.render('user/test-details-complete', {
+    count: questions.length,
+    countOfRight: countOfRight
+  });
 };

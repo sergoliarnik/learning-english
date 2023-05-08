@@ -1,0 +1,29 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/post.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <% if (tests.length > 0) { %>
+        <div class="grid">
+            <% for (let test of tests) { %>
+                <article class="card post-item">
+                    <header class="card__header">
+                        <h1 class="post__title"><%= test.title %></h1>
+                    </header>
+                    <div class="card__image">
+                        <img src="https://static01.nyt.com/images/2021/09/14/science/07CAT-STRIPES/07CAT-STRIPES-mediumSquareAt3X-v2.jpg"
+                             alt="Cat">
+                    </div>
+                    <div class="card__actions">
+                        <a href="/tests/<%= test.id %>" class="btn">Start</a>
+                    </div>
+                </article>
+            <% } %>
+        </div>
+    <% } else { %>
+        <h1>No Tests Found!</h1>
+    <% } %>
+</main>
+<%- include('../includes/end.ejs') %>

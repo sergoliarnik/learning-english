@@ -12,12 +12,15 @@ const sequelize = require('./util/database');
 const User = require('./models/user');
 const Post = require('./models/post');
 const Comment = require('./models/comment');
+const Test = require('./models/test');
+const Question = require('./models/question');
+const Answer = require('./models/answer');
 
 const app = express();
 const store = new PostgresDBStore({
   conString: `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@localhost:5432/${process.env.DB_NAME}`,
   tableName: 'session',
-  createTableIfMissing: true,
+  createTableIfMissing: true
 });
 
 app.set('view engine', 'ejs');
@@ -34,7 +37,7 @@ app.use(
     secret: 'my secret',
     resave: false,
     saveUninitialized: false,
-    store: store,
+    store: store
   })
 );
 
@@ -55,6 +58,12 @@ Comment.belongsTo(Post, { constraints: true, onDelete: 'CASCADE' });
 Post.hasMany(Comment);
 Comment.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 User.hasMany(Comment);
+Test.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+User.hasMany(Test);
+Question.belongsTo(Test, { constraints: true, onDelete: 'CASCADE' });
+Test.hasMany(Question);
+Answer.belongsTo(Question, { constraints: true, onDelete: 'CASCADE' });
+Question.hasMany(Answer);
 
 sequelize
   .sync()
