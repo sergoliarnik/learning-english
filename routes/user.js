@@ -16,4 +16,8 @@ router.get('/tests/:testId', userController.getTest);
 
 router.post('/tests/:testId/complete', userController.postTestComplete);
 
+router.get('/dictionary', userController.getDictionary)
+
+router.post('/dictionary', userController.postDictionary)
+
 module.exports = router;

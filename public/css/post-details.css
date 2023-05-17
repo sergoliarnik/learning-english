@@ -44,6 +44,11 @@
     border-radius: 5px;
 }
 
+.date{
+    text-align: right;
+}
+
+
 .author {
     font-weight: bold;
     margin-bottom: 5px;

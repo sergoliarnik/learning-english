@@ -15,6 +15,7 @@ const Comment = require('./models/comment');
 const Test = require('./models/test');
 const Question = require('./models/question');
 const Answer = require('./models/answer');
+const Word = require('./models/word');
 
 const app = express();
 const store = new PostgresDBStore({
@@ -65,6 +66,8 @@ Question.belongsTo(Test, { constraints: true, onDelete: 'CASCADE' });
 Test.hasMany(Question);
 Answer.belongsTo(Question, { constraints: true, onDelete: 'CASCADE' });
 Question.hasMany(Answer);
+Word.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
+User.hasMany(Word);
 
 sequelize
   .sync()

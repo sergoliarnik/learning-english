@@ -3,6 +3,7 @@ const Post = require('../models/post');
 const Comment = require('../models/comment');
 const Test = require('../models/test');
 const Answer = require('../models/answer');
+const Word = require('../models/word');
 
 exports.getIndex = async (req, res) => {
   const posts = await Post.findAll();
@@ -14,7 +15,7 @@ exports.getIndex = async (req, res) => {
 exports.getPost = async (req, res) => {
   const postId = req.params.postId;
   const post = await Post.findByPk(postId, { include: [User, Comment] });
-  const comments = await post.getComments({ include: [User] });
+  const comments = await post.getComments({ include: [User], order: [['createdAt', 'DESC']] });
 
   res.render('user/post-detail', {
     postId: postId,
@@ -35,7 +36,7 @@ exports.postComment = async (req, res) => {
   await comment.setUser(user);
   await comment.setPost(post);
 
-  res.redirect('/admin/posts');
+  res.redirect(`/posts/${postId}`);
 };
 
 exports.getTests = async (req, res) => {
@@ -66,5 +67,30 @@ exports.postTestComplete = async (req, res) => {
   res.render('user/test-details-complete', {
     count: questions.length,
     countOfRight: countOfRight
+  });
+};
+
+exports.getDictionary = async (req, res) => {
+  const userId = req.session.user.id;
+
+  const user = await User.findByPk(userId);
+  const words = await user.getWords();
+  res.render('user/dictionary', {
+    words: words
+  });
+};
+
+exports.postDictionary = async (req, res) => {
+  const userId = req.session.user.id;
+
+  const user = await User.findByPk(userId);
+  const word = req.body.word;
+  const definition = req.body.definition;
+  await user.createWord({ text: word, definition: definition });
+
+  const words = await user.getWords();
+  console.log(req.body);
+  res.render('user/dictionary', {
+    words: words
   });
 };

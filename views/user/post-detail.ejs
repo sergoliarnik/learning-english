@@ -1,32 +1,76 @@
-    <%- include('../includes/head.ejs') %>
-        <link rel="stylesheet" href="/css/post-details.css">
-    </head>
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/post-details.css">
+<style>
+    .form-container {
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+    }
 
-    <body>
-        <%- include('../includes/navigation.ejs') %>
-        <main class="centered post-detail__post">
-            <h1><%= post.title %></h1>
-            <hr>
-                <img class="post-detail__image" src="<%= post.imageUrl %>"
-                     alt="<%= post.title %>">
-            <p class='post-detail__text'><%= post.text %></p>
-            <p class='post-detail__author'>Author: <%= author %></p>
-            <p class='post-detail__comment'>Comments</p>
-            <div class="comments">
-            <% for(let comment of comments) { %>
-                    <div class="comment">
-                        <div class="author"><%= comment.user.email %></div>
-                        <div class="text"><%= comment.text %></div>
-                    </div>
-            <% } %>
+    .form-container label {
+        text-align: left;
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .form-container textarea {
+        width: 100%;
+        height: 120px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    .form-container button[type="submit"] {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .form-container button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main class="centered post-detail__post">
+    <h1><%= post.title ;%></h1>
+    <hr>
+    <img class="post-detail__image" src="<%= post.imageUrl ;%>"
+         alt="<%= post.title ;%>">
+    <p class='post-detail__text'><%= post.text ;%></p>
+    <p class='post-detail__author'>Author: <%= author ;%></p>
+    <p class='post-detail__comment'>Comments</p>
+    <div class="comments">
+        <% for(let comment of comments) { %>
+            <div class="comment">
+                <div class="author"><%= comment.user.email ;%></div>
+                <div class="text"><%= comment.text ;%></div>
+                <div class="date"><%= comment.createdAt.toLocaleString() ;%></div>
             </div>
-
-            <form action="/posts/<%= postId %>/comments" method="POST">
-
+        <% } %>
+    </div>
+    <% if (isAuthenticated) { %>
+        <div class="form-container ">
+            <form action="/posts/<%= postId ;%>/comments" method="POST">
                 <label for="text">Comment:</label>
                 <textarea name="text" id="text" required></textarea>
-
                 <button type="submit">Submit</button>
             </form>
-        </main>
-        <%- include('../includes/end.ejs') %>
+        </div>
+    <% } %>
+</main>
+<%- include('../includes/end.ejs') %>
