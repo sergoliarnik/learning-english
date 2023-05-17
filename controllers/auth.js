@@ -70,7 +70,7 @@ exports.postSignup = (req, res, next) => {
         .then((hashedPassword) => {
           const user = new User({
             email: email,
-            password: hashedPassword,
+            password: hashedPassword
           });
           return user.save();
         })

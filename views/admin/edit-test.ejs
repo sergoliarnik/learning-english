@@ -1,0 +1,73 @@
+<%- include('../includes/head.ejs') %>
+<link rel='stylesheet' href='/css/edit-test.css'>
+<link rel="stylesheet" href="/css/post.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<div>
+    <form action='/admin/add-test' method='post' class='edit-test-form post-form'>
+        <label for='imageUrl'>Image url: </label>
+        <input type='text' name='imageUrl' id='imageUrl'>
+        <label for='title'>Title: </label>
+        <input type='text' name='title' id='title'>
+        <button type='button' onclick='addTest()'>Add Question</button>
+        <ol id='list'></ol>
+        <button type='submit'>Submit</button>
+    </form>
+</div>
+<script>
+  function addTest() {
+    const questions = document.getElementById('list');
+    const question = document.createElement("li");
+
+    question.id = questions.querySelectorAll('li').length.toString();
+    questions.appendChild(question);
+    const questionInput = document.createElement("input");
+    questionInput.type = "text";
+    questionInput.name = "question-" + question.id;
+    questionInput.placeholder = "Enter question";
+    question.appendChild(questionInput)
+    // Create a new button element for this question
+    const addAnswerButton = document.createElement("button");
+    addAnswerButton.textContent = "Add Answer";
+    addAnswerButton.type = "button"
+    addAnswerButton.addEventListener("click", function() {
+      // Call a function to add an answer for this question
+      addAnswer(question.id);
+    });
+
+    // Append the button to the question element
+    question.appendChild(addAnswerButton);
+    // Add a line break before the radio button to put it on a new line
+    question.appendChild(document.createElement("br"));
+  }
+
+  function addAnswer(questionId) {
+    // Find the question element by ID
+    const question = document.getElementById(questionId);
+
+    // Create a new radio button element for this answer
+    const radioButton = document.createElement("input");
+    radioButton.type = "radio";
+    radioButton.name = "answer-right-" + questionId;
+
+    // Create a new input element for the answer text
+    const answerInput = document.createElement("input");
+    answerInput.type = "text";
+    answerInput.name = "answer-text-" + questionId;
+    answerInput.placeholder = "Enter answer";
+
+    // Append the radio button and input elements to the answer element
+    question.appendChild(radioButton);
+    question.appendChild(answerInput);
+    // Add a line break after the input to put the next radio button on a new line
+    question.appendChild(document.createElement("br"));
+
+    answerInput.addEventListener("input", function() {
+      radioButton.value = answerInput.value;
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+.edit-test-form{
+    padding-top: 5%;
+    font-family: Arial, sans-serif;
+    max-height: 90%;
+    padding-bottom: 5%;
+}
+
+.edit-test-form form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.edit-test-form label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.edit-test-form input[type="text"], button[type="button"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.edit-test-form input[type="text"]::placeholder {
+    color: #999;
+}
+.edit-test-form button[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.edit-test-form button[type="submit"]:hover {
+    background-color: #3e8e41;
+}
+.edit-test-form ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.edit-test-form li {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+}
+.edit-test-form li input[type="text"] {
+    display: inline-block;
+    width: 80%;
+    margin-right: 10px;
+}
+.edit-test-form li button[type="button"] {
+    display: inline-block;
+    width: 15%;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.edit-test-form li button[type="button"]:hover {
+    background-color: #3e8e41;
+}
+.edit-test-form li input[type="radio"] {
+    margin-right: 10px;
+}
+.edit-test-form li input[type="text"]:focus, li button[type="button"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+}

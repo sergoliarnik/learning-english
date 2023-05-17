@@ -10,6 +10,7 @@ const Test = sequelize.define('test', {
     primaryKey: true,
   },
   title: Sequelize.TEXT,
+  imageUrl: Sequelize.TEXT
 });
 
 module.exports = Test;

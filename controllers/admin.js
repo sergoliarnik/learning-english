@@ -1,5 +1,8 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const Test = require('../models/test');
+const Question = require('../models/question');
+const Answer = require('../models/answer');
 
 exports.getAddPost = (req, res) => {
   res.render('admin/edit-post', {
@@ -72,4 +75,48 @@ exports.postDeletePost = async (req, res) => {
   }
   await post.destroy();
   res.redirect('/admin/posts');
+};
+
+exports.getAddTest = (req, res) => {
+  res.render('admin/edit-test', {
+    editing: false
+  });
+};
+
+exports.postAddTest = async (req, res) => {
+  const test = await Test.create({
+    title: req.body.title,
+    imageUrl: req.body.imageUrl,
+    userId: parseInt(req.session.user.id)
+  })
+
+
+  for (let i = 0; i < Math.floor(Object.keys(req.body).length / 3); i++) {
+
+    const questionTitle = req.body[`question-${i}`];
+    const question = await Question.create({
+      title: questionTitle,
+      testId: parseInt(test.id)
+    });
+
+    const answers = req.body[`answer-text-${i}`];
+
+    for (const item of answers) {
+      await Answer.create({
+        text: item,
+        isRight: item === req.body[`answer-right-${i}`],
+        questionId: parseInt(question.id)
+      });
+    }
+  }
+
+  res.redirect('/tests');
+}
+
+exports.getTests = async (req, res) => {
+  const user = await User.findByPk(req.session.user.id);
+  const tests = await user.getTests();
+  res.render('admin/tests', {
+    tests: tests
+  });
 };

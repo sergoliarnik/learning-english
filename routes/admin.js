@@ -17,4 +17,10 @@ router.post('/edit-post', isAuth, adminController.postEditPost);
 
 router.post('/delete-post', isAuth, adminController.postDeletePost);
 
+router.get('/add-test', isAuth, adminController.getAddTest);
+
+router.post('/add-test', isAuth, adminController.postAddTest);
+
+router.get('/tests', isAuth, adminController.getTests);
+
 module.exports = router;
