@@ -20,4 +20,6 @@ router.get('/dictionary', userController.getDictionary)
 
 router.post('/dictionary', userController.postDictionary)
 
+
+
 module.exports = router;

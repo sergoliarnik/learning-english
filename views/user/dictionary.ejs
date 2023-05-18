@@ -5,8 +5,8 @@
 <body>
 <%- include('../includes/navigation.ejs') %>
 <div>
-    <h1 class='create-dictionary'>Create a Dictionary</h1>
-    <form class='create-dictionary' id="dictionaryForm" method='post' action='/dictionary'>
+    <h1>Create a Dictionary</h1>
+    <form id="dictionaryForm" method='post' action='/dictionary'>
         <label for="word">Word:</label>
         <input type="text" id="word" name="word" required>
 
@@ -16,18 +16,18 @@
         <input type='submit' value="Add Word">
     </form>
 
-    <table class='create-dictionary' id="dictionary">
-        <thead class='create-dictionary'>
-        <tr class='create-dictionary'>
-            <th class='create-dictionary'>Word</th>
-            <th class='create-dictionary'>Definition</th>
+    <table id="dictionary">
+        <thead>
+        <tr>
+            <th>Word</th>
+            <th>Definition</th>
         </tr>
         </thead>
-        <tbody class='create-dictionary' id="dictionaryBody">
+        <tbody id="dictionaryBody">
         <% for (word of words) { %>
-            <tr class='create-dictionary'>
-                <td class='create-dictionary'><%= word.text ;%></td>
-                <td class='create-dictionary'><%= word.definition ;%></td>
+            <tr>
+                <td><%= word.text ;%></td>
+                <td><%= word.definition ;%></td>
             </tr>
         <% } %>
         </tbody>

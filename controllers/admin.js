@@ -120,3 +120,23 @@ exports.getTests = async (req, res) => {
     tests: tests
   });
 };
+
+exports.getUsers = async (req, res) => {
+  res.render('admin/users', {
+    users: await User.findAll()
+  })
+}
+
+exports.postBan = async (req, res) => {
+  const user = await User.findByPk(parseInt(req.body.userId));
+  if(req.body.action === 'ban'){
+    user.isBanned = true;
+  }
+  else{
+    user.isBanned = false;
+  }
+  await user.save()
+
+  console.log(req.body);
+  res.redirect('users')
+}

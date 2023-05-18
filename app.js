@@ -70,7 +70,7 @@ Word.belongsTo(User, { constraints: true, onDelete: 'CASCADE' });
 User.hasMany(Word);
 
 sequelize
-  .sync()
+  .sync({force: false})
   .then(() => {
     app.listen(3000);
   })

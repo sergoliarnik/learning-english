@@ -1,8 +1,8 @@
 .edit-test-form{
-    padding-top: 5%;
     font-family: Arial, sans-serif;
     max-height: 90%;
     padding-bottom: 5%;
+    margin: 20px;
 }
 
 .edit-test-form form {
@@ -27,7 +27,7 @@
     color: #999;
 }
 .edit-test-form button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #00695c;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -36,7 +36,7 @@
     cursor: pointer;
 }
 .edit-test-form button[type="submit"]:hover {
-    background-color: #3e8e41;
+    background-color: #00695c;
 }
 .edit-test-form ol {
     list-style-type: none;
@@ -57,7 +57,7 @@
 .edit-test-form li button[type="button"] {
     display: inline-block;
     width: 15%;
-    background-color: #4CAF50;
+    background-color: #00695c;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -66,12 +66,12 @@
     cursor: pointer;
 }
 .edit-test-form li button[type="button"]:hover {
-    background-color: #3e8e41;
+    background-color: #00695c;
 }
 .edit-test-form li input[type="radio"] {
     margin-right: 10px;
 }
 .edit-test-form li input[type="text"]:focus, li button[type="button"]:focus {
     outline: none;
-    border-color: #4CAF50;
+    border-color: #00695c;
 }

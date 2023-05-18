@@ -11,6 +11,10 @@ const User = sequelize.define('user', {
   },
   email: Sequelize.STRING,
   password: Sequelize.STRING,
+  isBanned: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   role: {
     type: Sequelize.STRING,
     defaultValue: "User"

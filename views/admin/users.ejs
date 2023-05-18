@@ -1,0 +1,43 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/post.css">
+<link rel="stylesheet" href="/css/users.css">
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<div>
+    <h1>Admin Page</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Banned</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% users.forEach(user => { %>
+            <tr>
+                <td><%= user.email ;%></td>
+                <td><%= user.role ;%></td>
+                <td><%= user.isBanned ? 'true' : 'false' ;%></td>
+                <td>
+                    <form action='/admin/ban' method='post'>
+                        <% if (user.isBanned) { %>
+                            <input type='hidden' value='unban' name='action'>
+                            <button class="unban-button" onclick="toggleBan('<%= user.id ;%>')">Unban</button>
+                        <% } else { %>
+                            <input type='hidden' value='ban' name='action'>
+                            <button class="ban-button" onclick="toggleBan('<%= user.id ;%>')">Ban</button>
+                        <% } %>
+                        <input type='hidden' value='<%= user.id %>' name='userId'>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

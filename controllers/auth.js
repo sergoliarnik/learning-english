@@ -31,6 +31,10 @@ exports.postLogin = (req, res) => {
         req.flash('error', 'Invalid email or password.');
         return res.redirect('/login');
       }
+      if(user.isBanned){
+        req.flash('error', 'User was banned.');
+        return res.redirect('/login');
+      }
       bcrypt
         .compare(password, user.password)
         .then((doMatch) => {

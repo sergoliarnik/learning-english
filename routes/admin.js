@@ -2,6 +2,7 @@ const express = require('express');
 
 const adminController = require('../controllers/admin');
 const isAuth = require('../middleware/is-auth');
+const userController = require('../controllers/user');
 
 const router = express.Router();
 
@@ -22,5 +23,9 @@ router.get('/add-test', isAuth, adminController.getAddTest);
 router.post('/add-test', isAuth, adminController.postAddTest);
 
 router.get('/tests', isAuth, adminController.getTests);
+
+router.get('/users', isAuth, adminController.getUsers);
+
+router.post('/ban', isAuth, adminController.postBan);
 
 module.exports = router;
