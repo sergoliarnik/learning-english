@@ -1,10 +1,18 @@
 <%- include('../includes/head.ejs') %>
-<link rel="stylesheet" href="/css/post-details.css">
+<link rel="stylesheet" href="/css/test-result.css">
 </head>
 
 <body>
 <%- include('../includes/navigation.ejs') %>
-<main class="centered post-detail__post">
-    Congratulation (<%= countOfRight %> / <%= count %>)
-</main>
+
+<div class='result-body'>
+    <h1>Test Results</h1>
+
+    <div class="result-container">
+        <h2>Overall Score</h2>
+        <p class="score"><%= countOfRight * 100 / countOfQuestions %>%</p>
+        <p class="result-details">Correct answers: <%= countOfRight %> out of <%= countOfQuestions %></p>
+        <p class="result-details">Time Taken: <%= Math.ceil(duration / 60) %> minutes</p>
+    </div>
+</div>
 <%- include('../includes/end.ejs') %>

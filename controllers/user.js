@@ -56,17 +56,21 @@ exports.getTest = async (req, res) => {
 };
 
 exports.postTestComplete = async (req, res) => {
+  console.log(req.body);
   let countOfRight = 0;
   const testId = req.params.testId;
   const questions = await (await Test.findByPk(testId)).getQuestions({ include: Answer });
+  const duration = req.body.duration;
+  delete req.body.duration;
   for (const answer in req.body) {
     if ((await Answer.findByPk(req.body[answer])).isRight) {
       countOfRight++;
     }
   }
   res.render('user/test-details-complete', {
-    count: questions.length,
-    countOfRight: countOfRight
+    countOfQuestions: questions.length,
+    countOfRight: countOfRight,
+    duration: parseInt(duration)
   });
 };
 

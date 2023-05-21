@@ -5,7 +5,7 @@
 <body>
 <%- include('../includes/navigation.ejs') %>
 <main class="centered post-detail__post">
-    <form action="/tests/<%= testId; %>/complete" method="POST">
+    <form id="test-form" action="/tests/<%= testId; %>/complete" method="POST">
         <% for (let question of questions) { %>
             <h3><%= question.title %></h3>
             <% for (let answer of question.answers) { %>
@@ -17,3 +17,25 @@
     </form>
 </main>
 <%- include('../includes/end.ejs') %>
+
+<script>
+  // Record the timestamp when the page loads
+  var startTime = new Date();
+
+  // Attach an event listener to the form submission event
+  var form = document.getElementById('test-form');
+  form.addEventListener('submit', function(event) {
+    // Calculate the time duration by subtracting the start time from the current time
+    var endTime = new Date();
+    var duration = Math.round((endTime - startTime) / 1000); // Duration in seconds
+
+    // Create a hidden input field to include the duration in the form submission
+    var hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.name = 'duration';
+    hiddenInput.value = duration;
+
+    // Append the hidden input field to the form
+    form.appendChild(hiddenInput);
+  });
+</script>

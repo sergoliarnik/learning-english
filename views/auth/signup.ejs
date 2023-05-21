@@ -26,19 +26,22 @@
 
                 </div>
             </div>
-            <button class="btn" type="submit">Sign Up</button>
+            <button class="btn" type="submit" id='submitButton' disabled>Sign Up</button>
         </form>
 
         <script>
           const passwordInput = document.getElementById('password');
           const confirmPasswordInput = document.getElementById('confirmPassword');
           const passwordMatchError = document.getElementById('passwordMatchError');
+          const button = document.getElementById('submitButton');
 
           confirmPasswordInput.addEventListener('input', () => {
             if (passwordInput.value !== confirmPasswordInput.value) {
               passwordMatchError.textContent = "Passwords do not match.";
+              button.disabled = true
             } else {
               passwordMatchError.textContent = "";
+              button.disabled = false
             }
           });
         </script>

@@ -19,17 +19,17 @@
         <tbody>
         <% users.forEach(user => { %>
             <tr>
-                <td><%= user.email ;%></td>
-                <td><%= user.role ;%></td>
-                <td><%= user.isBanned ? 'true' : 'false' ;%></td>
+                <td><%= user.email; %></td>
+                <td><%= user.role; %></td>
+                <td><%= user.isBanned ? 'true' : 'false'; %></td>
                 <td>
                     <form action='/admin/ban' method='post'>
                         <% if (user.isBanned) { %>
                             <input type='hidden' value='unban' name='action'>
-                            <button class="unban-button" onclick="toggleBan('<%= user.id ;%>')">Unban</button>
+                            <button class="unban-button" onclick="toggleBan('<%= user.id; %>')">Unban</button>
                         <% } else { %>
                             <input type='hidden' value='ban' name='action'>
-                            <button class="ban-button" onclick="toggleBan('<%= user.id ;%>')">Ban</button>
+                            <button class="ban-button" onclick="toggleBan('<%= user.id; %>')">Ban</button>
                         <% } %>
                         <input type='hidden' value='<%= user.id %>' name='userId'>
                     </form>
